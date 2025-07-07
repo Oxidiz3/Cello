@@ -1,27 +1,38 @@
 namespace Cello.TUIConsole;
 
-class ProgressBar(int total, int progress) : ITUIConsoleText
+class ProgressBar(int total, string title) : TUIConsoleText
 {
-    readonly int Total = total;
-    int Progress = progress;
-    bool ITUIConsoleText.Dead { get => Progress >= Total; }
+    public readonly int Total = total;
+    public readonly string Title = title;
+    private int Progress = 0;
 
-    public void Run()
-    {
-        Console.WriteLine("Progress:");
-        // Print done bars
-        if (Progress != 0)
-        {
-            Console.Write(string.Concat(Enumerable.Repeat('|', Progress - 1)));
-        }
-        // Print progress percentage
-        Console.Write($"{Math.Round((decimal)(Progress + 1) * 100 / Total)}%");
-        // Print bars to be finished
-        Console.Write(string.Concat(Enumerable.Repeat('=', Total - 1 - Progress)));
-    }
+    private decimal PercentProgress() => Math.Round(100 * (decimal)(Progress + 1) / Total) / 100;
+    private readonly int TotalNumberOfBars = 50;
 
-    public void UpdateProgress(int newProgress)
+    public void SetProgress(int newProgress)
     {
         Progress = newProgress;
     }
+
+    public override void Display()
+    {
+        // We want there to be 25 bars for seeing progress so that it can fit in a small 
+        // terminal without having to wrap like this
+        // ||||||============== 20%
+        Console.WriteLine($"{Title}");
+
+        var barsCompleted = (int)Math.Round(PercentProgress() * TotalNumberOfBars);
+
+        // Print done bars
+        Console.Write(string.Concat(Enumerable.Repeat('|', barsCompleted)));
+
+        // Print bars to be finished
+        Console.Write(string.Concat(Enumerable.Repeat('=', TotalNumberOfBars - barsCompleted)));
+
+        // Print progress percentage
+        Console.Write($"{(int)(PercentProgress() * 100)}%");
+    }
+
+    public override bool IsDead() => Progress >= Total - 1;
+
 }

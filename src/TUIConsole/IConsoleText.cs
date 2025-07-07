@@ -1,7 +1,8 @@
 namespace Cello.TUIConsole;
 
-interface ITUIConsoleText
+public abstract class TUIConsoleText
 {
-    abstract void Run();
-    bool Dead { get; }
+    public abstract void Display();
+    public abstract bool IsDead();
+    public DateTime CreationTime { get; set; } = DateTime.Now;
 }

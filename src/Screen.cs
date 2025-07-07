@@ -2,24 +2,34 @@ using Cello.TUIConsole;
 
 class Screen
 {
-    private List<ITUIConsoleText> AliveElements = [];
+    private List<TUIConsoleText> AliveElements = [];
+    private List<TUIConsoleText> History = [];
 
     public Screen()
     {
     }
 
-    public void AddElementToEnd(ITUIConsoleText consoleText)
+    public void AddElementToEnd(TUIConsoleText consoleText)
     {
         AliveElements.Add(consoleText);
     }
 
-    public void Display()
+    public void DisplayElements()
     {
+        Thread.Sleep(100);
         Console.Clear();
-        AliveElements = AliveElements.Where(a => !a.Dead).ToList();
+
+        // History.AddRange(AliveElements.Where(a => a.IsDead()).ToList());
+        // foreach (var consoletext in History)
+        // {
+        //     consoletext.Display();
+        // }
+
+        AliveElements = AliveElements.Where(a => !a.IsDead()).ToList();
+
         foreach (var consoletext in AliveElements)
         {
-            consoletext.Run();
+            consoletext.Display();
         }
     }
 }

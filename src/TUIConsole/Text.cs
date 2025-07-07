@@ -1,13 +1,25 @@
 namespace Cello.TUIConsole
 {
-    public class Text(string txt) : ITUIConsoleText
+    public class Text(string txt, double howLongToDisplayFor, bool isHeader = false) : TUIConsoleText
     {
         readonly string Txt = txt;
+        private readonly double HowLongToDisplayFor = howLongToDisplayFor;
 
-        public bool Dead => false;
-
-        public void Run()
+        public override bool IsDead()
         {
+            return Utilities.TimeToNow(CreationTime) > HowLongToDisplayFor;
+        }
+
+        public override void Display()
+        {
+            if (isHeader)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Txt);
+                Console.ResetColor();
+                return;
+            }
+
             Console.WriteLine(Txt);
         }
     }
