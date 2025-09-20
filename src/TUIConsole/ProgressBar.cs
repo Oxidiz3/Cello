@@ -1,6 +1,6 @@
 namespace Cello.TUIConsole;
 
-class ProgressBar(int total, string title) : TUIConsoleText
+class ProgressBar(int total, string title) : IConsoleText
 {
     public readonly int Total = total;
     public readonly string Title = title;
@@ -34,5 +34,4 @@ class ProgressBar(int total, string title) : TUIConsoleText
     }
 
     public override bool IsDead() => Progress >= Total - 1;
-
 }

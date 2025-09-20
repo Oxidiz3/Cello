@@ -1,6 +1,6 @@
 namespace Cello.TUIConsole;
 
-public abstract class TUIConsoleText
+public abstract class IConsoleText
 {
     public abstract void Display();
     public abstract bool IsDead();

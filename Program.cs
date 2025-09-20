@@ -1,6 +1,4 @@
-﻿using System.IO.Pipelines;
-using Cello.TUIConsole;
-
+﻿using Cello.TUIConsole;
 
 class Program
 {
@@ -29,10 +27,9 @@ class Program
         }
 
         cello.AddElementToEnd(new Text($"You chose: {selection.GetChoice()}", 3));
-        while (true)
+        while (cello.AliveElements.Count > 0)
         {
             cello.DisplayElements();
         }
-
     }
 }

@@ -1,6 +1,6 @@
 namespace Cello.TUIConsole;
 
-class Selection(string[] choices, string title) : TUIConsoleText
+class Selection(string[] choices, string title) : IConsoleText
 {
     private readonly string[] Choices = choices;
     private string Title = title;

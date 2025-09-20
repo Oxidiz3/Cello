@@ -2,14 +2,14 @@ using Cello.TUIConsole;
 
 class Screen
 {
-    private List<TUIConsoleText> AliveElements = [];
-    private List<TUIConsoleText> History = [];
+    public List<IConsoleText> AliveElements = [];
+    private List<IConsoleText> History = [];
 
     public Screen()
     {
     }
 
-    public void AddElementToEnd(TUIConsoleText consoleText)
+    public void AddElementToEnd(IConsoleText consoleText)
     {
         AliveElements.Add(consoleText);
     }
@@ -31,5 +31,7 @@ class Screen
         {
             consoletext.Display();
         }
+
+        return;
     }
 }
